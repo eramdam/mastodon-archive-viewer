@@ -1,11 +1,12 @@
 ---
-import { getProfileData } from "../dataHelpers";
+import { getOutboxData, getProfileData } from "../dataHelpers";
 import Base from "../layouts/base.astro";
 import avatar from "../../archive-data/avatar.jpg";
 import header from "../../archive-data/header.jpg";
 import { Image } from "astro:assets";
 
-const json = getProfileData();
+const profileData = getProfileData();
+const outboxData = getOutboxData();
 ---
 
 <Base>
@@ -13,7 +14,9 @@ const json = getProfileData();
     <head>
       <meta charset="UTF-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <title>Document</title>
+      <title>
+        {profileData.name} @{profileData.preferredUsername} Mastodon archive
+      </title>
     </head>
     <body>
       <main>
@@ -27,11 +30,14 @@ const json = getProfileData();
               width={100}
               class={"main-avatar"}
             />
-            {json.name} @{json.preferredUsername} Mastodon archive
+            {profileData.name} @{profileData.preferredUsername} Mastodon archive
           </div>
         </div>
         <div class="main-content">
-          <div class="profile-bio" set:html={json.summary} />
+          <div class="profile-bio" set:html={profileData.summary} />
+          <pre>
+            {JSON.stringify(outboxData, null, 2)}
+          </pre>
         </div>
       </main>
     </body>
