@@ -7,11 +7,16 @@
     "start": "astro dev",
     "build": "astro check && astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "typecheck": "tsc --noEmit",
+    "typecheck:watch": "tsc --noEmit --watch"
   },
   "dependencies": {
-    "astro": "^4.15.1",
     "@astrojs/check": "^0.9.3",
+    "@types/lodash": "^4.17.7",
+    "astro": "^4.15.1",
+    "lodash": "^4.17.21",
+    "modern-normalize": "^3.0.0",
     "typescript": "^5.5.4"
   }
 }

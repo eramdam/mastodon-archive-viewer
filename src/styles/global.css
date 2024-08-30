@@ -1,0 +1,18 @@
+:root {
+  color-scheme: light dark;
+}
+
+main {
+  max-width: 600px;
+  margin: 0 auto;
+  background-color:;
+  border-radius: 4px;
+}
+
+.main-avatar {
+  vertical-align: middle;
+}
+
+.profile-bio {
+  line-height: 1.6;
+}
