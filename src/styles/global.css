@@ -1,18 +1,64 @@
 :root {
   color-scheme: light dark;
+
+  --background-color: light-dark(
+    theme(colors.white),
+    theme(colors.neutral.700)
+  );
+}
+
+body {
+  background-color: var(--background-color);
 }
 
 main {
   max-width: 600px;
   margin: 0 auto;
-  background-color:;
-  border-radius: 4px;
+  margin-top: 40px;
+  background-color: light-dark(theme(colors.white), theme(colors.neutral.950));
+  border-radius: 6px;
+  box-shadow: theme(boxShadow.2xl);
 }
 
 .main-avatar {
   vertical-align: middle;
+  border-radius: 4px;
+}
+
+.header {
+  position: relative;
+  overflow: hidden;
+  padding: 20px;
+  aspect-ratio: 1500 / 500;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+}
+.header > div {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 20px;
+  font-weight: bold;
+  z-index: 1;
+  position: relative;
+}
+
+.header-background {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  width: 100%;
+  height: auto;
+  mask-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.3), transparent);
 }
 
 .profile-bio {
   line-height: 1.6;
+}
+.main-content {
+  padding: 10px 20px;
+  padding-top: 0;
 }

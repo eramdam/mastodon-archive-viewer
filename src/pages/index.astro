@@ -2,6 +2,7 @@
 import { getProfileData } from "../dataHelpers";
 import Base from "../layouts/base.astro";
 import avatar from "../../archive-data/avatar.jpg";
+import header from "../../archive-data/header.jpg";
 import { Image } from "astro:assets";
 
 const json = getProfileData();
@@ -16,18 +17,22 @@ const json = getProfileData();
     </head>
     <body>
       <main>
-        <h1>
-          <Image
-            src={avatar}
-            alt=""
-            height={40}
-            width={40}
-            class={"main-avatar"}
-          />
-          {json.name} @{json.preferredUsername} Mastodon archive
-        </h1>
-        <div class="profile-bio" set:html={json.summary} />
-        <pre>{JSON.stringify(json, null, 2)}</pre>
+        <div class="header">
+          <Image src={header} alt="" class={"header-background"} />
+          <div>
+            <Image
+              src={avatar}
+              alt=""
+              height={100}
+              width={100}
+              class={"main-avatar"}
+            />
+            {json.name} @{json.preferredUsername} Mastodon archive
+          </div>
+        </div>
+        <div class="main-content">
+          <div class="profile-bio" set:html={json.summary} />
+        </div>
       </main>
     </body>
   </html>
