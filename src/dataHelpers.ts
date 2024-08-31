@@ -27,6 +27,7 @@ const orderedPosts = outbox.orderedItems.toReversed();
 
 function getMastodonPostsBase() {
   return orderedPosts.filter((f) => {
+    // Only showing original posts
     if (isStatus(f)) {
       const isUnlisted =
         f.object.cc.includes("https://www.w3.org/ns/activitystreams#Public") &&
@@ -40,7 +41,7 @@ function getMastodonPostsBase() {
       return includePrivatePosts ? true : isUnlisted || isPublic;
     }
 
-    return true;
+    return false;
   });
 }
 
