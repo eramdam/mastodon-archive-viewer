@@ -46,7 +46,7 @@ const Status: React.FC<Props> = ({ status, isExpanded }) => {
       <div className="status">
         <div className="status-body">
           <p>
-            RT <a href={status.object}>{status.object}</a>
+            Boosted <a href={status.object}>{status.object}</a>
           </p>
         </div>
         {statusFooter}
@@ -91,7 +91,7 @@ const Status: React.FC<Props> = ({ status, isExpanded }) => {
     if (status.object.summary) {
       return (
         <div className="status">
-          <details open={isExpanded}>
+          <details className="status-details" open={isExpanded}>
             <summary>{status.object.summary}</summary>
             {statusContent}
           </details>

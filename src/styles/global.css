@@ -7,6 +7,7 @@
     theme(colors.slate.800)
   );
   --link: light-dark(theme(colors.indigo.500), theme(colors.indigo.400));
+  --subtle-outline: light-dark(rgba(0, 0, 0, 0.15), hsla(0, 0%, 100%, 0.15));
 }
 
 body {
@@ -141,7 +142,7 @@ main {
   max-width: 100%;
   max-height: 100%;
   border-radius: 8px;
-  outline: 1px solid light-dark(rgba(0, 0, 0, 0.15), hsla(0, 0%, 100%, 0.15));
+  outline: 1px solid var(--subtle-outline);
   outline-offset: -1px;
 }
 
@@ -194,5 +195,22 @@ main {
 
   &:has(+ .status-link)::after {
     content: " • ";
+  }
+}
+
+.status-details {
+  margin-top: 1em;
+}
+
+.status-details > summary {
+  display: inline list-item;
+  border-radius: 4px;
+  padding: 0.25em 0.5em;
+  outline: 1px solid var(--subtle-outline);
+  outline-offset: -1px;
+  background-color: light-dark(transparent, theme(colors.slate.700));
+
+  &:hover {
+    background-color: var(--subtle-outline);
   }
 }
