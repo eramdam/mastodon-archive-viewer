@@ -5,9 +5,9 @@ import avatar from "../../archive-data/avatar.jpg";
 import header from "../../archive-data/header.jpg";
 import { Image } from "astro:assets";
 import Status from "../components/status";
+import { AllStatuses } from "../components/allStatuses";
 
 const profileData = getMastodonProfile();
-const outboxData = getMastodonPosts();
 ---
 
 <Base>
@@ -36,14 +36,7 @@ const outboxData = getMastodonPosts();
         </div>
         <div class="main-content">
           <div class="profile-bio" set:html={profileData.summary} />
-          <div class="profile-meta">
-            {new Intl.NumberFormat().format(outboxData.length)} posts
-          </div>
-          {
-            outboxData.slice(0, 100).map((post) => {
-              return <Status status={post} isExpanded={false} />;
-            })
-          }
+          <AllStatuses client:load />
         </div>
       </main>
     </body>

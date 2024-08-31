@@ -41,7 +41,7 @@ function getMastodonPostsBase() {
       return includePrivatePosts ? true : isUnlisted || isPublic;
     }
 
-    return false;
+    return true;
   });
 }
 

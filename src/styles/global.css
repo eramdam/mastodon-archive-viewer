@@ -78,7 +78,8 @@ main {
   padding: 10px 0;
   padding-top: 0;
 
-  & > div {
+  & [class^="profile-"],
+  & .status {
     padding-left: 20px;
     padding-right: 20px;
   }
@@ -213,4 +214,11 @@ main {
   &:hover {
     background-color: var(--subtle-outline);
   }
+}
+
+.profile-controls {
+  margin-bottom: 1em;
+  display: inline-flex;
+  flex-direction: column;
+  gap: 4px;
 }
