@@ -1,0 +1,54 @@
+---
+import { Image } from "astro:assets";
+import type { OrderedItem } from "../types/outbox";
+import { isStatus } from "../dataHelpers";
+
+interface Props {
+  status: OrderedItem;
+}
+
+const { status } = Astro.props;
+const statusDateString = new Date(status.published).toLocaleString();
+
+const images =
+  (isStatus(status) &&
+    status.object.attachment
+      .filter((f) => f.type === "Document" && f.mediaType.startsWith("image/"))
+      .filter(Boolean)) ||
+  [];
+---
+
+<div class="status">
+  {
+    isStatus(status) ? (
+      <div class="status-body" set:html={status.object.content} />
+    ) : (
+      <div class="status-body">
+        <p>
+          RT
+          <a href={status.object as string}>{status.object}</a>
+        </p>
+      </div>
+    )
+  }
+  <div class="status-images">
+    {
+      images.map((f) => {
+        return (
+          <a href={f.url}>
+            <Image
+              src={f.url}
+              height={f.height}
+              width={f.width}
+              alt=""
+              class={"status-image"}
+            />
+          </a>
+        );
+      })
+    }
+  </div>
+
+  <date datetime={status.published}>{statusDateString}</date>
+  <!-- <pre>{JSON.stringify(status, null, 2)}</pre> -->
+</div>

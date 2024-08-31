@@ -64,7 +64,7 @@ export interface OrderedItem {
   id: string;
   type: OrderedItemType;
   actor: string;
-  published: Date;
+  published: string;
   to: string[];
   cc: string[];
   object: ObjectClass | string;
@@ -75,7 +75,7 @@ export interface ObjectClass {
   type: OneOfType;
   summary: null | string;
   inReplyTo: null | string;
-  published: Date;
+  published: string;
   url: string;
   attributedTo: string;
   to: string[];
@@ -90,11 +90,11 @@ export interface ObjectClass {
   tag: Tag[];
   replies: ObjectReplies;
   directMessage?: boolean;
-  endTime?: Date;
-  closed?: Date;
+  endTime?: string;
+  closed?: string;
   votersCount?: number;
   oneOf?: OneOf[];
-  updated?: Date;
+  updated?: string;
 }
 
 export interface Attachment {
@@ -209,7 +209,7 @@ export interface Tag {
   href?: string;
   name: string;
   id?: string;
-  updated?: Date;
+  updated?: string;
   icon?: Icon;
 }
 

@@ -58,8 +58,31 @@ main {
 .profile-bio {
   line-height: 1.6;
 }
+.profile-meta {
+  margin-bottom: 20px;
+}
 
 .main-content {
   padding: 10px 20px;
   padding-top: 0;
+}
+
+.status {
+  border-top: light-dark(theme(colors.neutral.700), theme(colors.neutral.600))
+    1px solid;
+  padding: 10px 0;
+  padding-bottom: 1.3em;
+}
+
+.status-images {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(200px, 1fr));
+  gap: 10px;
+}
+
+.status-image {
+  object-fit: contain;
+  width: 100%;
+  height: 100%;
+  border-radius: 6px;
 }

@@ -1,12 +1,13 @@
 ---
-import { getOutboxData, getProfileData } from "../dataHelpers";
+import { getMastodonPosts, getMastodonProfile } from "../dataHelpers";
 import Base from "../layouts/base.astro";
 import avatar from "../../archive-data/avatar.jpg";
 import header from "../../archive-data/header.jpg";
 import { Image } from "astro:assets";
+import Status from "../components/status.astro";
 
-const profileData = getProfileData();
-const outboxData = getOutboxData();
+const profileData = getMastodonProfile();
+const outboxData = getMastodonPosts();
 ---
 
 <Base>
@@ -35,9 +36,14 @@ const outboxData = getOutboxData();
         </div>
         <div class="main-content">
           <div class="profile-bio" set:html={profileData.summary} />
-          <pre>
-            {JSON.stringify(outboxData, null, 2)}
-          </pre>
+          <div class="profile-meta">
+            {new Intl.NumberFormat().format(outboxData.length)} posts
+          </div>
+          {
+            outboxData.slice(0, 100).map((post) => {
+              return <Status status={post} />;
+            })
+          }
         </div>
       </main>
     </body>
