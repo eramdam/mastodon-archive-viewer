@@ -5,13 +5,21 @@ const outbox = outboxRaw as Outbox.Outbox;
 
 const PUBLIC_RECIPIENT = "https://www.w3.org/ns/activitystreams#Public";
 
-export type OutboxPost = Outbox.OrderedItem & { object: Outbox.ObjectClass };
+export type OutboxPost = Omit<Outbox.OrderedItem, "object"> & {
+  object: Outbox.ObjectClass;
+};
+
+export type Boost = OutboxPost & { object: string };
 
 export function isStatus(f: Outbox.OrderedItem): f is OutboxPost {
   return typeof f.object !== "string";
 }
 
-const includePrivatePosts = true;
+export function isBoost(f: Outbox.OrderedItem): f is Boost {
+  return typeof f.object === "string";
+}
+
+const includePrivatePosts = false;
 
 export function getMastodonPosts() {
   return outbox.orderedItems.toReversed().filter((f) => {

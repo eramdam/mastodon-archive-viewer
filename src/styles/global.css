@@ -25,6 +25,11 @@ main {
   border-radius: 4px;
 }
 
+.header-nav {
+  padding: 20px;
+  display: inline-block;
+}
+
 .header {
   position: relative;
   overflow: hidden;
@@ -85,4 +90,8 @@ main {
   width: 100%;
   height: 100%;
   border-radius: 6px;
+}
+
+.status-footer {
+  padding-top: 20px;
 }

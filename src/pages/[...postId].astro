@@ -1,0 +1,52 @@
+---
+import Status from "../components/status";
+import { convert } from "html-to-text";
+import {
+  getMastodonPosts,
+  getMastodonProfile,
+  isStatus,
+  type OutboxPost,
+} from "../dataHelpers";
+import Base from "../layouts/base.astro";
+
+export function getStaticPaths() {
+  const outboxData = getMastodonPosts();
+  return outboxData.filter(isStatus).map((f) => {
+    return { params: { postId: f.object.id.split("/").pop() } };
+  });
+}
+
+const profileData = getMastodonProfile();
+const { postId } = Astro.params;
+const postForId = getMastodonPosts().find((f): f is OutboxPost => {
+  if (isStatus(f)) {
+    return f.object.id.split("/").pop() === postId;
+  }
+  return false;
+});
+if (!postForId) {
+  return Astro.redirect("/404");
+}
+---
+
+<Base>
+  <html lang="en">
+    <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>{convert(postForId.object.content)}</title>
+    </head>
+    <body>
+      <main>
+        <div>
+          <a href="/" class="header-nav">
+            ← @{profileData.preferredUsername} Mastodon archive
+          </a>
+        </div>
+        <div class="main-content">
+          <Status status={postForId} isExpanded />
+        </div>
+      </main>
+    </body>
+  </html>
+</Base>

@@ -4,7 +4,7 @@ import Base from "../layouts/base.astro";
 import avatar from "../../archive-data/avatar.jpg";
 import header from "../../archive-data/header.jpg";
 import { Image } from "astro:assets";
-import Status from "../components/status.astro";
+import Status from "../components/status";
 
 const profileData = getMastodonProfile();
 const outboxData = getMastodonPosts();
@@ -41,7 +41,7 @@ const outboxData = getMastodonPosts();
           </div>
           {
             outboxData.slice(0, 100).map((post) => {
-              return <Status status={post} />;
+              return <Status status={post} isExpanded={false} />;
             })
           }
         </div>
