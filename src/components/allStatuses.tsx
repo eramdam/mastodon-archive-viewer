@@ -4,7 +4,7 @@ import Status from "./status";
 
 const outboxData = getMastodonPosts();
 
-const PAGE_SIZE = 100;
+const PAGE_SIZE = 50;
 
 export const AllStatuses = () => {
   const [showBoosts, setShowBoosts] = useState(false);
@@ -19,9 +19,7 @@ export const AllStatuses = () => {
       .slice((pageIndex - 1) * PAGE_SIZE, pageIndex * PAGE_SIZE);
   }, [pageIndex, showBoosts]);
   useEffect(() => {
-    setTimeout(() => {
-      setIsMounted(true);
-    }, 10_000);
+    setIsMounted(true);
   }, []);
 
   if (!isMounted) {

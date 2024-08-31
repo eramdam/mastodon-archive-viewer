@@ -21,7 +21,7 @@ export function isBoost(f: Outbox.OrderedItem): f is Boost {
   return typeof f.object === "string";
 }
 
-const includePrivatePosts = true;
+const includePrivatePosts = false;
 
 const orderedPosts = outbox.orderedItems.toReversed();
 
