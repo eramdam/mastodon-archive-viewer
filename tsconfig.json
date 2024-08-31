@@ -5,5 +5,5 @@
     "jsx": "react-jsx",
     "jsxImportSource": "react"
   },
-  "exclude": ["archive-data"]
+  "exclude": ["archive-data", ".astro", "dist"]
 }
