@@ -8,7 +8,10 @@ interface Props {
 }
 
 const Status: React.FC<Props> = ({ status, isExpanded }) => {
-  const statusDateString = new Date(status.published).toLocaleString();
+  const statusDateString = new Date(status.published).toLocaleString("en", {
+    timeStyle: "medium",
+    dateStyle: "medium",
+  });
 
   const images = React.useMemo(() => {
     if (isStatus(status) && status.object.attachment) {
@@ -16,16 +19,24 @@ const Status: React.FC<Props> = ({ status, isExpanded }) => {
         .filter(
           (f) => f.type === "Document" && f.mediaType.startsWith("image/")
         )
-        .filter(Boolean);
+        .filter(Boolean)
+        .slice(0, 3);
     }
     return [];
   }, [status]);
 
   const statusFooter = (
     <div className="status-footer">
-      <time dateTime={status.published}>{statusDateString}</time>{" "}
+      <time className="status-time" dateTime={status.published}>
+        {statusDateString}
+      </time>
       {isStatus(status) && (
-        <a href={`/status/${status.object.id.split("/").pop()}`}>🔗</a>
+        <a
+          className="status-link"
+          href={`/status/${status.object.id.split("/").pop()}`}
+        >
+          Link
+        </a>
       )}
     </div>
   );
@@ -50,19 +61,30 @@ const Status: React.FC<Props> = ({ status, isExpanded }) => {
           className="status-body"
           dangerouslySetInnerHTML={{ __html: status.object.content }}
         />
-        <div className="status-images">
-          {images.map((f, index) => (
-            <a key={index} href={f.url}>
-              <img
-                src={f.url}
-                height={f.height}
-                width={f.width}
-                alt=""
-                className="status-image"
-              />
-            </a>
-          ))}
-        </div>
+        {(images.length && (
+          <div
+            className="status-images"
+            style={{
+              aspectRatio:
+                images.length === 1
+                  ? `${images[0].width} / ${images[0].height}`
+                  : undefined,
+            }}
+          >
+            {images.map((f, index) => (
+              <a key={index} href={f.url}>
+                <img
+                  src={f.url}
+                  height={f.height}
+                  width={f.width}
+                  alt=""
+                  className="status-image"
+                />
+              </a>
+            ))}
+          </div>
+        )) ||
+          null}
       </>
     );
 
