@@ -1,4 +1,6 @@
 import actor from "../archive-data/actor.json";
+import memoize from "memoize";
+import _ from "lodash";
 import outboxRaw from "../archive-data/outbox.json" assert { type: "json" };
 import * as Outbox from "./types/outbox";
 const outbox = outboxRaw as Outbox.Outbox;
@@ -19,10 +21,12 @@ export function isBoost(f: Outbox.OrderedItem): f is Boost {
   return typeof f.object === "string";
 }
 
-const includePrivatePosts = false;
+const includePrivatePosts = true;
 
-export function getMastodonPosts() {
-  return outbox.orderedItems.toReversed().filter((f) => {
+const orderedPosts = outbox.orderedItems.toReversed();
+
+function getMastodonPostsBase() {
+  return orderedPosts.filter((f) => {
     if (isStatus(f)) {
       const isUnlisted =
         f.object.cc.includes("https://www.w3.org/ns/activitystreams#Public") &&
@@ -39,6 +43,17 @@ export function getMastodonPosts() {
     return true;
   });
 }
+
+export const getMastodonPosts = memoize(getMastodonPostsBase);
+export const getMastodonPostsById = memoize(() => {
+  const posts = getMastodonPosts();
+
+  return _(posts)
+    .filter(isStatus)
+    .compact()
+    .keyBy((f) => f.object.id.split("/").pop() || "")
+    .value();
+});
 
 export function getMastodonProfile() {
   return {

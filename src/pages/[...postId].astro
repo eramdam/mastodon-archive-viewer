@@ -3,6 +3,7 @@ import Status from "../components/status";
 import { convert } from "html-to-text";
 import {
   getMastodonPosts,
+  getMastodonPostsById,
   getMastodonProfile,
   isStatus,
   type OutboxPost,
@@ -10,20 +11,14 @@ import {
 import Base from "../layouts/base.astro";
 
 export function getStaticPaths() {
-  const outboxData = getMastodonPosts();
-  return outboxData.filter(isStatus).map((f) => {
-    return { params: { postId: f.object.id.split("/").pop() } };
+  return Object.keys(getMastodonPostsById()).map((k) => {
+    return { params: { postId: k } };
   });
 }
 
 const profileData = getMastodonProfile();
 const { postId } = Astro.params;
-const postForId = getMastodonPosts().find((f): f is OutboxPost => {
-  if (isStatus(f)) {
-    return f.object.id.split("/").pop() === postId;
-  }
-  return false;
-});
+const postForId = getMastodonPostsById()[postId];
 if (!postForId) {
   return Astro.redirect("/404");
 }
