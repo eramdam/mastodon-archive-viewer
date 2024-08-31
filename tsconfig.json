@@ -4,5 +4,6 @@
     "resolveJsonModule": true,
     "jsx": "react-jsx",
     "jsxImportSource": "react"
-  }
+  },
+  "exclude": ["archive-data"]
 }
