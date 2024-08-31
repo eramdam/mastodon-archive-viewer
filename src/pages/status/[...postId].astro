@@ -1,13 +1,7 @@
 ---
-import Status from "../../components/status";
 import { convert } from "html-to-text";
-import {
-  getMastodonPosts,
-  getMastodonPostsById,
-  getMastodonProfile,
-  isStatus,
-  type OutboxPost,
-} from "../../dataHelpers";
+import Status from "../../components/status";
+import { getMastodonPostsById, getMastodonProfile } from "../../dataHelpers";
 import Base from "../../layouts/base.astro";
 
 export function getStaticPaths() {
