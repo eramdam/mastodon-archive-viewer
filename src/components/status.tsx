@@ -25,7 +25,7 @@ const Status: React.FC<Props> = ({ status, isExpanded }) => {
     <div className="status-footer">
       <time dateTime={status.published}>{statusDateString}</time>{" "}
       {isStatus(status) && (
-        <a href={`/${status.object.id.split("/").pop()}`}>🔗</a>
+        <a href={`/status/${status.object.id.split("/").pop()}`}>🔗</a>
       )}
     </div>
   );

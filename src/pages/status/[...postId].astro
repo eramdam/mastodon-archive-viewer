@@ -1,5 +1,5 @@
 ---
-import Status from "../components/status";
+import Status from "../../components/status";
 import { convert } from "html-to-text";
 import {
   getMastodonPosts,
@@ -7,8 +7,8 @@ import {
   getMastodonProfile,
   isStatus,
   type OutboxPost,
-} from "../dataHelpers";
-import Base from "../layouts/base.astro";
+} from "../../dataHelpers";
+import Base from "../../layouts/base.astro";
 
 export function getStaticPaths() {
   return Object.keys(getMastodonPostsById()).map((k) => {
