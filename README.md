@@ -2,6 +2,8 @@
 
 This is an [Astro](https://astro.build) based Mastodon archive viewer.
 
+A demo is available at https://eramdam.github.io/mastodon-archive-viewer/
+
 # Usage
 
 You will need:
