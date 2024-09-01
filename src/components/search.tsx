@@ -1,6 +1,6 @@
 import Fuse from "fuse.js";
 import { convert } from "html-to-text";
-import { useMemo, useState } from "react";
+import { useId, useMemo, useState } from "react";
 import { getMastodonPostsById } from "../dataHelpers";
 import Status from "./status";
 
@@ -32,11 +32,13 @@ const fuse = new Fuse<SearchDocument>(postsDocuments, {
 export const Search = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const matchedPosts = useSearch(searchTerm, 50);
+  const inputId = useId();
 
   return (
     <>
       <div className="statuses-search">
         <input
+          id={inputId}
           type="search"
           placeholder="Search..."
           onChange={(e) => setSearchTerm(e.target.value)}

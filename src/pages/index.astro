@@ -1,6 +1,10 @@
 ---
 import { SearchOrBrowse } from "../components/searchOrBrowse";
-import { getMastodonPosts, getMastodonProfile } from "../dataHelpers";
+import {
+  getAssetUrl,
+  getMastodonPosts,
+  getMastodonProfile,
+} from "../dataHelpers";
 import Base from "../layouts/base.astro";
 
 const profileData = getMastodonProfile();
@@ -20,14 +24,14 @@ const outboxData = getMastodonPosts();
       <main>
         <div class="header">
           <img
-            src={profileData.image.url}
+            src={getAssetUrl(profileData.image.url)}
             alt=""
             class={"header-background"}
             loading="eager"
           />
           <div>
             <img
-              src={profileData.icon.url}
+              src={getAssetUrl(profileData.icon.url)}
               alt=""
               height={100}
               width={100}

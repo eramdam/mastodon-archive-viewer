@@ -1,30 +1,35 @@
-import { useState } from "react";
+import { useId, useState } from "react";
 import { AllStatuses } from "./allStatuses";
 import { Search } from "./search";
 
 export const SearchOrBrowse = () => {
   const [mode, setMode] = useState<"search" | "browse">("search");
+  const inputId = useId();
 
   return (
     <>
       <div className="statuses-controls">
-        <label htmlFor="search">
+        <label htmlFor={inputId + "-search"}>
           <input
             type="radio"
-            id="search"
+            autoComplete="off"
+            id={inputId + "-search"}
             name="mode"
             checked={mode === "search"}
+            value="search"
             onChange={() => {
               setMode("search");
             }}
           />{" "}
           Search
         </label>
-        <label htmlFor="browse">
+        <label htmlFor={inputId + "-browse"}>
           <input
             type="radio"
-            id="browse"
+            autoComplete="off"
+            id={inputId + "-browse"}
             name="mode"
+            value="browse"
             checked={mode === "browse"}
             onChange={() => {
               setMode("browse");

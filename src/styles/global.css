@@ -259,10 +259,6 @@ main {
     border-left-width: 0;
   }
 
-  & input {
-    display: none;
-  }
-
   &:has(input:checked) {
     background-color: var(--subtle-outline);
   }

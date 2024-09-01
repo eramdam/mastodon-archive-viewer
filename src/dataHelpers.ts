@@ -99,3 +99,9 @@ export function getPreviousPosts(post: OutboxPost) {
 
   return result;
 }
+
+export function getAssetUrl(attachmentUrl: string) {
+  return import.meta.env.BASE_URL === "/"
+    ? attachmentUrl
+    : import.meta.env.BASE_URL + "/" + attachmentUrl;
+}
