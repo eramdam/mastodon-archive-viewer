@@ -160,7 +160,6 @@ function renderMedia(f: Attachment) {
   }
 
   if (f.mediaType.startsWith("audio/")) {
-    console.log(f);
     return (
       <>
         <img
