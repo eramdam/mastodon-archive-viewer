@@ -1,5 +1,4 @@
 ---
-import { Image } from "astro:assets";
 import { SearchOrBrowse } from "../components/searchOrBrowse";
 import { getMastodonPosts, getMastodonProfile } from "../dataHelpers";
 import Base from "../layouts/base.astro";
@@ -16,6 +15,7 @@ const outboxData = getMastodonPosts();
       <title>
         {profileData.name} @{profileData.preferredUsername} Mastodon archive
       </title>
+      <base href={import.meta.env.BASE_URL} />
     </head>
     <body>
       <main>
