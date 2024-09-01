@@ -15,12 +15,14 @@ You will need:
 
 3. Place the following files inside the `archive-data` folder:
 
-- `avatar.jpg`
-- `header.jpg`
 - `actor.json`
 - `outbox.json`
 
-4. Copy the `media_attachments` folder into the `public` folder
+4. Place the following files and folders into the `public` folder:
+
+- `media_attachments`
+- `avatar.jpg`
+- `header.jpg`
 
 5. (Optional) Create a `.env` file with the following content if you want to show "private" (non public and non unlisted) posts from the archive:
 

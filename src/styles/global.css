@@ -295,10 +295,7 @@ main {
 
 .status-media {
   position: relative;
-
-  &:has(audio) {
-    display: inline-block;
-  }
+  display: inline-block;
 }
 .status-image-toggle {
   position: absolute;
@@ -337,7 +334,9 @@ main {
   display: none;
 }
 
-.status-image-toggle:has(input:not(:checked)) ~ .media-gallery audio {
+.status-image-toggle:has(input:not(:checked))
+  ~ .media-gallery
+  :is(audio, video) {
   display: none !important;
 }
 

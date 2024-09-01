@@ -23,3 +23,5 @@ pnpm-debug.log*
 .idea/
 archive-data/
 public/media_attachments/
+public/avatar.*
+public/header.*

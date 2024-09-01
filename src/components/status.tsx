@@ -72,7 +72,7 @@ const Status: React.FC<Props> = ({ status, isExpanded, isMain }) => {
               >
                 {eyeSlashIcon}
                 <input type="checkbox" id={`${status.id}-media-toggle`} />
-                <span>Sensitive content, click to show</span>
+                <span>Click to show</span>
               </label>
             )}
             <div
@@ -160,12 +160,13 @@ function renderMedia(f: Attachment) {
   }
 
   if (f.mediaType.startsWith("audio/")) {
+    console.log(f);
     return (
       <>
         <img
-          src={f.icon?.url}
-          height={f.height}
-          width={f.width}
+          src={f.icon?.url || "/default-image.png"}
+          height={f.height || 1500}
+          width={f.width || 500}
           alt={f.summary || "attachment"}
           className="status-image"
           loading="lazy"
