@@ -10,6 +10,7 @@ interface SearchDocument {
   published: string;
 }
 const index = new FlexSearch.Document<SearchDocument>({
+  tokenize: "full",
   document: {
     id: "id",
     index: ["content"],
