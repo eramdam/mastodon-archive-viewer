@@ -30,8 +30,9 @@ You will need:
 SHOW_PRIVATE_POSTS=true
 ```
 
-6. Run `npm install` and `npm run build`
-7. The generated site will be in the `dist` folder
+6. Tweak the values in `astro.config.mjs` if you want to change the base URL of the generated site
+7. Run `npm install` and `npm run build`
+8. The generated site will be in the `dist` folder
 
 # Features and specs
 

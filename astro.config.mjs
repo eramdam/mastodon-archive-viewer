@@ -12,6 +12,7 @@ export default defineConfig({
   ],
 
   output: "static",
+  // Change this to your base URL if you want to deploy the site somewhere else
   site: "https://eramdam.github.io",
   base: "/mastodon-archive-viewer",
 });
