@@ -1,6 +1,6 @@
 import React from "react";
 import type { OrderedItem } from "../types/outbox";
-import { isBoost, isStatus } from "../dataHelpers";
+import { getPostId, isBoost, isStatus } from "../dataHelpers";
 
 interface Props {
   status: OrderedItem;
@@ -35,10 +35,7 @@ const Status: React.FC<Props> = ({ status, isExpanded, isMain }) => {
         <span className="status-time">Reply</span>
       )}
       {isStatus(status) && (
-        <a
-          className="status-link"
-          href={`/status/${status.object.id.split("/").pop()}#main`}
-        >
+        <a className="status-link" href={`/status/${getPostId(status)}#main`}>
           Link
         </a>
       )}

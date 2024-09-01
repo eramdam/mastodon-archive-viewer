@@ -21,6 +21,10 @@ export function isBoost(f: Outbox.OrderedItem): f is Boost {
   return typeof f.object === "string";
 }
 
+export function getPostId(post: OutboxPost) {
+  return post.object.id.split("/").pop() || "";
+}
+
 const includePrivatePosts = import.meta.env.SHOW_PRIVATE_POSTS === "true";
 
 const orderedPosts = outbox.orderedItems.toReversed();
@@ -30,8 +34,7 @@ function getMastodonPostsBase() {
     // Only showing original posts
     if (isStatus(f)) {
       const isUnlisted =
-        f.object.cc.includes("https://www.w3.org/ns/activitystreams#Public") &&
-        f.object.cc.length === 1 &&
+        f.object.cc.includes(PUBLIC_RECIPIENT) &&
         f.object.to.every((r) => r.endsWith("/followers"));
       const isPublic =
         f.object.to.includes(PUBLIC_RECIPIENT) &&
@@ -46,13 +49,16 @@ function getMastodonPostsBase() {
 }
 
 export const getMastodonPosts = memoize(getMastodonPostsBase);
+
 export const getMastodonPostsById = memoize(() => {
   const posts = getMastodonPosts();
 
   return _(posts)
     .filter(isStatus)
     .compact()
-    .keyBy((f) => f.object.id.split("/").pop() || "")
+    .keyBy((f) => {
+      return getPostId(f);
+    })
     .value();
 });
 
@@ -72,9 +78,14 @@ export function getPreviousPosts(post: OutboxPost) {
   let currentPost = post;
   let result: Outbox.OrderedItem[] = [post];
 
+  const postsById = getMastodonPostsById();
+
   while (currentPost.object.inReplyTo) {
-    currentPost =
-      getMastodonPostsById()[currentPost.object.inReplyTo.split("/").pop()!];
+    const inReplyToId = currentPost.object.inReplyTo.split("/").pop()!;
+    currentPost = postsById[inReplyToId];
+    if (!currentPost) {
+      break;
+    }
     result.unshift(currentPost);
   }
 
