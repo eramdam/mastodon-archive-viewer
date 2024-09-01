@@ -6,7 +6,7 @@ A demo is available at https://eramdam.github.io/mastodon-archive-viewer/
 
 # Disclaimer
 
-This project is provided as-is, without any warranty. Use it at your own risk.
+This project is provided as-is, without any warranty.
 
 # Usage
 
