@@ -65,7 +65,14 @@ export const AllStatuses = () => {
         </label>
       </div>
       {postsData.map((post) => {
-        return <Status key={post.id} status={post} isExpanded={false} />;
+        return (
+          <Status
+            isMain={false}
+            key={post.id}
+            status={post}
+            isExpanded={false}
+          />
+        );
       })}
     </div>
   );

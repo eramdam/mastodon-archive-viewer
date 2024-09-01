@@ -94,6 +94,10 @@ main {
   padding-bottom: 1em;
 }
 
+.status:target:not(:only-child) {
+  background-color: light-dark(rgba(0, 0, 0, 0.05), rgba(255, 255, 255, 0.05));
+}
+
 .status-images {
   display: grid;
   --mediaMaxHeight: 450px;

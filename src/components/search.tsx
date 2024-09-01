@@ -41,7 +41,14 @@ export const Search = () => {
         />
       </div>
       {(matchedPosts || []).map((result) => {
-        return <Status key={result.id} status={result} isExpanded={false} />;
+        return (
+          <Status
+            isMain={false}
+            key={result.id}
+            status={result}
+            isExpanded={false}
+          />
+        );
       })}
     </>
   );

@@ -5,9 +5,10 @@ import { isBoost, isStatus } from "../dataHelpers";
 interface Props {
   status: OrderedItem;
   isExpanded: boolean;
+  isMain: boolean;
 }
 
-const Status: React.FC<Props> = ({ status, isExpanded }) => {
+const Status: React.FC<Props> = ({ status, isExpanded, isMain }) => {
   const statusDateString = new Date(status.published).toLocaleString("en", {
     timeStyle: "medium",
     dateStyle: "medium",
@@ -36,7 +37,7 @@ const Status: React.FC<Props> = ({ status, isExpanded }) => {
       {isStatus(status) && (
         <a
           className="status-link"
-          href={`/status/${status.object.id.split("/").pop()}`}
+          href={`/status/${status.object.id.split("/").pop()}#main`}
         >
           Link
         </a>
@@ -104,10 +105,10 @@ const Status: React.FC<Props> = ({ status, isExpanded }) => {
     }
 
     return (
-      <div className="status">
+      <article className="status" id={isMain ? "main" : undefined}>
         {statusContent}
         {statusFooter}
-      </div>
+      </article>
     );
   }
 

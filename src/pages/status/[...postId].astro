@@ -1,7 +1,11 @@
 ---
 import { convert } from "html-to-text";
 import Status from "../../components/status";
-import { getMastodonPostsById, getMastodonProfile } from "../../dataHelpers";
+import {
+  getMastodonPostsById,
+  getMastodonProfile,
+  getPreviousPosts,
+} from "../../dataHelpers";
 import Base from "../../layouts/base.astro";
 
 export function getStaticPaths() {
@@ -16,8 +20,13 @@ const postForId = getMastodonPostsById()[postId];
 if (!postForId) {
   return Astro.redirect("/404");
 }
+
+const posts = getPreviousPosts(postForId);
 ---
 
+<script>
+  document.querySelector("#main")?.scrollIntoView();
+</script>
 <Base>
   <html lang="en">
     <head>
@@ -33,7 +42,17 @@ if (!postForId) {
           </a>
         </div>
         <div class="main-content">
-          <Status status={postForId} isExpanded />
+          {
+            posts.map((f, index, array) => {
+              return (
+                <Status
+                  isMain={index === array.length - 1}
+                  status={f}
+                  isExpanded
+                />
+              );
+            })
+          }
         </div>
       </main>
     </body>

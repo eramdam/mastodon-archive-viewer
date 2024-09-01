@@ -67,3 +67,16 @@ export function getMastodonProfile() {
     image: actor.image,
   };
 }
+
+export function getPreviousPosts(post: OutboxPost) {
+  let currentPost = post;
+  let result: Outbox.OrderedItem[] = [post];
+
+  while (currentPost.object.inReplyTo) {
+    currentPost =
+      getMastodonPostsById()[currentPost.object.inReplyTo.split("/").pop()!];
+    result.unshift(currentPost);
+  }
+
+  return result;
+}
