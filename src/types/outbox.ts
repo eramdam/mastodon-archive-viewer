@@ -107,6 +107,7 @@ export interface Attachment {
   height: number;
   summary: null | string;
   focalPoint?: number[];
+  icon?: Icon;
 }
 
 export enum MediaType {

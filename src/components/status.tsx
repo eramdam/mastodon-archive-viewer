@@ -1,6 +1,6 @@
 import React from "react";
 import { getPostId, isBoost, isStatus } from "../dataHelpers";
-import type { OrderedItem } from "../types/outbox";
+import type { Attachment, OrderedItem } from "../types/outbox";
 import { Blurhash } from "react-blurhash";
 
 interface Props {
@@ -18,9 +18,7 @@ const Status: React.FC<Props> = ({ status, isExpanded, isMain }) => {
   const images = React.useMemo(() => {
     if (isStatus(status) && status.object.attachment) {
       return status.object.attachment
-        .filter(
-          (f) => f.type === "Document" && f.mediaType.startsWith("image/")
-        )
+        .filter((f) => f.type === "Document")
         .filter(Boolean);
     }
     return [];
@@ -56,7 +54,7 @@ const Status: React.FC<Props> = ({ status, isExpanded, isMain }) => {
   }
 
   if (isStatus(status)) {
-    const hasSensitiveContent = status.object.sensitive || true;
+    const hasSensitiveContent = status.object.sensitive;
 
     const statusContent = (
       <>
@@ -78,7 +76,7 @@ const Status: React.FC<Props> = ({ status, isExpanded, isMain }) => {
               </label>
             )}
             <div
-              className="status-images"
+              className="media-gallery"
               style={{
                 aspectRatio:
                   images.length === 1
@@ -99,14 +97,7 @@ const Status: React.FC<Props> = ({ status, isExpanded, isMain }) => {
                         punch={1}
                       ></Blurhash>
                     )}
-                    <img
-                      src={f.url}
-                      height={f.height}
-                      width={f.width}
-                      alt={f.summary || "attachment"}
-                      className="status-image"
-                      loading="lazy"
-                    />
+                    {renderMedia(f)}
                   </a>
                 );
               })}
@@ -141,6 +132,51 @@ const Status: React.FC<Props> = ({ status, isExpanded, isMain }) => {
 };
 
 export default Status;
+
+function renderMedia(f: Attachment) {
+  if (f.mediaType.startsWith("image/")) {
+    return (
+      <img
+        src={f.url}
+        height={f.height}
+        width={f.width}
+        alt={f.summary || "attachment"}
+        className="status-image"
+        loading="lazy"
+      />
+    );
+  }
+
+  if (f.mediaType.startsWith("video/")) {
+    return (
+      <video
+        src={f.url}
+        height={f.height}
+        width={f.width}
+        className="status-image"
+        controls
+      />
+    );
+  }
+
+  if (f.mediaType.startsWith("audio/")) {
+    return (
+      <>
+        <img
+          src={f.icon?.url}
+          height={f.height}
+          width={f.width}
+          alt={f.summary || "attachment"}
+          className="status-image"
+          loading="lazy"
+        />
+        <audio src={f.url} controls />
+      </>
+    );
+  }
+
+  return null;
+}
 
 const eyeSlashIcon = (
   <svg

@@ -98,7 +98,7 @@ main {
   background-color: light-dark(rgba(0, 0, 0, 0.05), rgba(255, 255, 255, 0.05));
 }
 
-.status-images {
+.media-gallery {
   display: grid;
   --mediaMaxHeight: 450px;
   max-height: var(--mediaMaxHeight);
@@ -152,6 +152,11 @@ main {
   border-radius: 8px;
   outline: 1px solid var(--subtle-outline);
   outline-offset: -1px;
+
+  & + audio {
+    position: absolute;
+    inset: 0;
+  }
 }
 
 .status-footer {
@@ -290,6 +295,10 @@ main {
 
 .status-media {
   position: relative;
+
+  &:has(audio) {
+    display: inline-block;
+  }
 }
 .status-image-toggle {
   position: absolute;
@@ -301,6 +310,10 @@ main {
   background-color: rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(4px);
   padding: 0.5em;
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+  }
 }
 
 .status-image-toggle:has(input:checked) span {
@@ -324,6 +337,14 @@ main {
   display: none;
 }
 
-.status-image-toggle:has(input:checked) ~ .status-images div:has(canvas) {
+.status-image-toggle:has(input:not(:checked)) ~ .media-gallery audio {
+  display: none !important;
+}
+
+.status-image-toggle:has(input:not(:checked)) ~ .media-gallery a:has(canvas) {
+  pointer-events: none;
+}
+
+.status-image-toggle:has(input:checked) ~ .media-gallery div:has(canvas) {
   display: none !important;
 }
