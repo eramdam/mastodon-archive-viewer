@@ -30,6 +30,9 @@ const Status: React.FC<Props> = ({ status, isExpanded }) => {
       <time className="status-time" dateTime={status.published}>
         {statusDateString}
       </time>
+      {isStatus(status) && status.object.inReplyTo && (
+        <span className="status-time">Reply</span>
+      )}
       {isStatus(status) && (
         <a
           className="status-link"

@@ -36,8 +36,8 @@ export const AllStatuses = () => {
   }
 
   return (
-    <>
-      <div className="profile-controls">
+    <div className="allstatuses">
+      <div className="allstatuses-controls">
         <label htmlFor="pages">
           Page:{" "}
           <input
@@ -67,6 +67,6 @@ export const AllStatuses = () => {
       {postsData.map((post) => {
         return <Status key={post.id} status={post} isExpanded={false} />;
       })}
-    </>
+    </div>
   );
 };

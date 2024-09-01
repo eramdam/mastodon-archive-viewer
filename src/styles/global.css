@@ -80,6 +80,7 @@ main {
 
   & .statuses-search,
   & [class^="profile-"],
+  & .allstatuses,
   & .status,
   & .statuses-controls {
     padding-left: 20px;
@@ -196,7 +197,7 @@ main {
     theme(colors.slate.500)
   );
 
-  &:has(+ .status-link)::after {
+  &:has(+ .status-link, + &)::after {
     content: " • ";
   }
 }
@@ -218,7 +219,7 @@ main {
   }
 }
 
-.profile-controls {
+.allstatuses-controls {
   margin-bottom: 1em;
   display: inline-flex;
   flex-direction: column;
@@ -270,4 +271,15 @@ main {
   border-radius: 6px;
   font-size: 1.25em;
   padding: 0.5em;
+}
+
+.allstatuses {
+  padding-top: 20px;
+}
+
+.allstatuses .status {
+  padding-left: 20px;
+  padding-right: 20px;
+  margin-left: -20px;
+  margin-right: -20px;
 }
