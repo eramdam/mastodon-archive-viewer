@@ -4,6 +4,10 @@ This is an [Astro](https://astro.build) based Mastodon archive viewer.
 
 A demo is available at https://eramdam.github.io/mastodon-archive-viewer/
 
+# Disclaimer
+
+This project is provided as-is, without any warranty. Use it at your own risk.
+
 # Usage
 
 You will need:
@@ -25,7 +29,7 @@ You will need:
 - `avatar.jpg`
 - `header.jpg`
 
-5. (Optional) Create a `.env` file with the following content if you want to show "private" (non public and non unlisted) posts from the archive:
+5. (Optional) Create a `.env` file with the following content if you want to show "private" (non public and non unlisted) posts from the archive. Those posts won't shown by default:
 
 ```
 SHOW_PRIVATE_POSTS=true
