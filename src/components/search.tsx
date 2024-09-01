@@ -1,7 +1,7 @@
-import FlexSearch from "flexsearch";
+import Fuse from "fuse.js";
 import { convert } from "html-to-text";
-import { getMastodonPostsById } from "../dataHelpers";
 import { useMemo, useState } from "react";
+import { getMastodonPostsById } from "../dataHelpers";
 import Status from "./status";
 
 interface SearchDocument {
@@ -9,21 +9,24 @@ interface SearchDocument {
   content: string;
   published: string;
 }
-const index = new FlexSearch.Document<SearchDocument>({
-  tokenize: "full",
-  document: {
-    id: "id",
-    index: ["content"],
-  },
-});
+
 const postsById = getMastodonPostsById();
 
-Object.entries(postsById).forEach(([id, post]) => {
-  index.add({
-    id: id,
-    content: convert(post.object.content),
-    published: post.published,
-  });
+const postsDocuments: SearchDocument[] = Object.entries(postsById).map(
+  ([id, post]) => {
+    return {
+      id: id,
+      content: convert(post.object.content),
+      published: post.published,
+    };
+  }
+);
+
+const fuse = new Fuse<SearchDocument>(postsDocuments, {
+  includeScore: true,
+  keys: ["content"],
+  ignoreLocation: true,
+  isCaseSensitive: false,
 });
 
 export const Search = () => {
@@ -56,8 +59,12 @@ export const Search = () => {
 
 function useSearch(query: string, limit: number) {
   return useMemo(() => {
-    const rawSearch = index.search(query, limit);
+    const rawSearch = fuse.search(query, {
+      limit,
+    });
 
-    return rawSearch.flatMap((f) => f.result.map((r) => postsById[String(r)]));
+    return rawSearch.map((result) => {
+      return postsById[result.item.id];
+    });
   }, [query, limit]);
 }
