@@ -21,7 +21,3 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
-archive-data/
-public/media_attachments/
-public/avatar.*
-public/header.*
