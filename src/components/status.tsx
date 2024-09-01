@@ -1,5 +1,5 @@
 import React from "react";
-import { getAssetUrl, getPostId, isBoost, isStatus } from "../dataHelpers";
+import { getPathWithBase, getPostId, isBoost, isStatus } from "../dataHelpers";
 import type { Attachment, OrderedItem } from "../types/outbox";
 import { Blurhash } from "react-blurhash";
 
@@ -33,7 +33,10 @@ const Status: React.FC<Props> = ({ status, isExpanded, isMain }) => {
         <span className="status-time">Reply</span>
       )}
       {isStatus(status) && (
-        <a className="status-link" href={`/status/${getPostId(status)}#main`}>
+        <a
+          className="status-link"
+          href={getPathWithBase(`/status/${getPostId(status)}#main`)}
+        >
           Link
         </a>
       )}
@@ -137,7 +140,7 @@ function renderMedia(f: Attachment) {
   if (f.mediaType.startsWith("image/")) {
     return (
       <img
-        src={getAssetUrl(f.url)}
+        src={getPathWithBase(f.url)}
         height={f.height}
         width={f.width}
         alt={f.summary || "attachment"}
@@ -150,7 +153,7 @@ function renderMedia(f: Attachment) {
   if (f.mediaType.startsWith("video/")) {
     return (
       <video
-        src={getAssetUrl(f.url)}
+        src={getPathWithBase(f.url)}
         height={f.height}
         width={f.width}
         className="status-image"
@@ -164,8 +167,8 @@ function renderMedia(f: Attachment) {
       <>
         <img
           src={
-            (f.icon?.url && getAssetUrl(f.icon.url)) ||
-            getAssetUrl("default-image.png")
+            (f.icon?.url && getPathWithBase(f.icon.url)) ||
+            getPathWithBase("default-image.png")
           }
           height={f.height || 1500}
           width={f.width || 500}
@@ -173,7 +176,7 @@ function renderMedia(f: Attachment) {
           className="status-image"
           loading="lazy"
         />
-        <audio src={getAssetUrl(f.url)} controls />
+        <audio src={getPathWithBase(f.url)} controls />
       </>
     );
   }

@@ -1,7 +1,7 @@
 ---
 import { SearchOrBrowse } from "../components/searchOrBrowse";
 import {
-  getAssetUrl,
+  getPathWithBase,
   getMastodonPosts,
   getMastodonProfile,
 } from "../dataHelpers";
@@ -11,44 +11,35 @@ const profileData = getMastodonProfile();
 const outboxData = getMastodonPosts();
 ---
 
-<Base>
-  <html lang="en">
-    <head>
-      <meta charset="UTF-8" />
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <title>
+<Base
+  title={`${profileData.name} @${profileData.preferredUsername} Mastodon archive`}
+>
+  <main>
+    <div class="header">
+      <img
+        src={getPathWithBase(profileData.image.url)}
+        alt=""
+        class={"header-background"}
+        loading="eager"
+      />
+      <div>
+        <img
+          src={getPathWithBase(profileData.icon.url)}
+          alt=""
+          height={100}
+          width={100}
+          class={"main-avatar"}
+          loading="eager"
+        />
         {profileData.name} @{profileData.preferredUsername} Mastodon archive
-      </title>
-    </head>
-    <body>
-      <main>
-        <div class="header">
-          <img
-            src={getAssetUrl(profileData.image.url)}
-            alt=""
-            class={"header-background"}
-            loading="eager"
-          />
-          <div>
-            <img
-              src={getAssetUrl(profileData.icon.url)}
-              alt=""
-              height={100}
-              width={100}
-              class={"main-avatar"}
-              loading="eager"
-            />
-            {profileData.name} @{profileData.preferredUsername} Mastodon archive
-          </div>
-        </div>
-        <div class="main-content">
-          <div class="profile-bio" set:html={profileData.summary} />
-          <div class="profile-meta">
-            {new Intl.NumberFormat().format(outboxData.length)} posts
-          </div>
-          <SearchOrBrowse client:idle />
-        </div>
-      </main>
-    </body>
-  </html>
+      </div>
+    </div>
+    <div class="main-content">
+      <div class="profile-bio" set:html={profileData.summary} />
+      <div class="profile-meta">
+        {new Intl.NumberFormat().format(outboxData.length)} posts
+      </div>
+      <SearchOrBrowse client:idle />
+    </div>
+  </main>
 </Base>

@@ -1,6 +1,26 @@
 ---
 import "../styles/global.css";
 import "modern-normalize";
+
+export type Props = {
+  title: string;
+};
 ---
 
-<slot />
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{Astro.props.title}</title>
+  </head>
+  <body>
+    <slot />
+    <footer>
+      Generated with <a
+        href="https://github.com/eramdam/mastodon-archive-viewer"
+        >eramdam/mastodon-archive-viewer</a
+      >
+    </footer>
+  </body>
+</html>

@@ -100,8 +100,8 @@ export function getPreviousPosts(post: OutboxPost) {
   return result;
 }
 
-export function getAssetUrl(attachmentUrl: string) {
+export function getPathWithBase(path: string) {
   return import.meta.env.BASE_URL === "/"
-    ? attachmentUrl
-    : import.meta.env.BASE_URL + "/" + attachmentUrl;
+    ? path
+    : import.meta.env.BASE_URL + "/" + path.replace(/^\//, "");
 }

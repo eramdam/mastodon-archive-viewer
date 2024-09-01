@@ -24,6 +24,14 @@ main {
   box-shadow: theme(boxShadow.2xl);
 }
 
+footer {
+  max-width: 600px;
+  margin: 15px auto;
+  text-align: center;
+  font-size: 80%;
+  color: light-dark(theme(colors.slate.500), theme(colors.slate.400));
+}
+
 @media (max-width: 600px) {
   main {
     margin-top: 0;
@@ -140,6 +148,12 @@ main {
   & > a {
     border-radius: 8px;
     overflow: hidden;
+  }
+}
+
+@media (max-width: 600px) {
+  .media-gallery {
+    --mediaMaxHeight: 250px;
   }
 }
 
@@ -303,6 +317,7 @@ main {
   background-color: rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(4px);
   padding: 0.5em;
+  color: white;
 
   &:hover {
     background-color: rgba(0, 0, 0, 0.8);

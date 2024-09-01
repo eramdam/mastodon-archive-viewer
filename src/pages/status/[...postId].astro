@@ -4,6 +4,7 @@ import Status from "../../components/status";
 import {
   getMastodonPostsById,
   getMastodonProfile,
+  getPathWithBase,
   getPreviousPosts,
 } from "../../dataHelpers";
 import Base from "../../layouts/base.astro";
@@ -27,35 +28,26 @@ const posts = getPreviousPosts(postForId);
 <script>
   document.querySelector("#main")?.scrollIntoView();
 </script>
-<Base>
-  <html lang="en">
-    <head>
-      <meta charset="UTF-8" />
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <title>{convert(postForId.object.content)}</title>
-    </head>
-    <body>
-      <main>
-        <div>
-          <a href="/" class="header-nav">
-            ← @{profileData.preferredUsername} Mastodon archive
-          </a>
-        </div>
-        <div class="main-content">
-          {
-            posts.map((f, index, array) => {
-              return (
-                <Status
-                  isMain={index === array.length - 1}
-                  status={f}
-                  isExpanded
-                  client:load
-                />
-              );
-            })
-          }
-        </div>
-      </main>
-    </body>
-  </html>
+<Base title={convert(postForId.object.content)}>
+  <main>
+    <div>
+      <a href={getPathWithBase("/")} class="header-nav">
+        ← @{profileData.preferredUsername} Mastodon archive
+      </a>
+    </div>
+    <div class="main-content">
+      {
+        posts.map((f, index, array) => {
+          return (
+            <Status
+              isMain={index === array.length - 1}
+              status={f}
+              isExpanded
+              client:load
+            />
+          );
+        })
+      }
+    </div>
+  </main>
 </Base>
