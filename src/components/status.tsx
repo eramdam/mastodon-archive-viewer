@@ -163,7 +163,7 @@ function renderMedia(f: Attachment) {
     return (
       <>
         <img
-          src={(f.icon?.url && getImageUrl(f.icon.url)) || "/default-image.png"}
+          src={(f.icon?.url && getImageUrl(f.icon.url)) || "default-image.png"}
           height={f.height || 1500}
           width={f.width || 500}
           alt={f.summary || "attachment"}
