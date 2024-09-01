@@ -10,4 +10,8 @@ export default defineConfig({
     }),
     react(),
   ],
+
+  output: "static",
+  site: "https://eramdam.github.io",
+  base: "/mastodon-archive-viewer",
 });
