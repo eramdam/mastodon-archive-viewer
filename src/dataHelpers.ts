@@ -6,6 +6,7 @@ import * as Outbox from "./types/outbox";
 const outbox = outboxRaw as Outbox.Outbox;
 
 const PUBLIC_RECIPIENT = "https://www.w3.org/ns/activitystreams#Public";
+const USER_DOMAIN = new URL(actor.url).hostname;
 
 export type OutboxPost = Omit<Outbox.OrderedItem, "object"> & {
   object: Outbox.ObjectClass;
@@ -81,6 +82,13 @@ export function getPreviousPosts(post: OutboxPost) {
   const postsById = getMastodonPostsById();
 
   while (currentPost.object.inReplyTo) {
+    const isReplyToExternalDomain =
+      USER_DOMAIN !== new URL(currentPost.object.inReplyTo).hostname;
+
+    if (isReplyToExternalDomain) {
+      break;
+    }
+
     const inReplyToId = currentPost.object.inReplyTo.split("/").pop()!;
     currentPost = postsById[inReplyToId];
     if (!currentPost) {

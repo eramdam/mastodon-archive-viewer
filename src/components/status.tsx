@@ -1,6 +1,6 @@
 import React from "react";
-import type { OrderedItem } from "../types/outbox";
 import { getPostId, isBoost, isStatus } from "../dataHelpers";
+import type { OrderedItem } from "../types/outbox";
 
 interface Props {
   status: OrderedItem;
@@ -72,17 +72,21 @@ const Status: React.FC<Props> = ({ status, isExpanded, isMain }) => {
                   : undefined,
             }}
           >
-            {images.map((f, index) => (
-              <a key={index} href={f.url}>
-                <img
-                  src={f.url}
-                  height={f.height}
-                  width={f.width}
-                  alt=""
-                  className="status-image"
-                />
-              </a>
-            ))}
+            {images.map((f, index) => {
+              console.log(f);
+              return (
+                <a key={index} href={f.url}>
+                  <img
+                    src={f.url}
+                    height={f.height}
+                    width={f.width}
+                    alt={f.summary || "attachment"}
+                    className="status-image"
+                    loading="lazy"
+                  />
+                </a>
+              );
+            })}
           </div>
         )) ||
           null}

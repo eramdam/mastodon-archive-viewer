@@ -22,7 +22,12 @@ const outboxData = getMastodonPosts();
     <body>
       <main>
         <div class="header">
-          <Image src={header} alt="" class={"header-background"} />
+          <Image
+            src={header}
+            alt=""
+            class={"header-background"}
+            loading="eager"
+          />
           <div>
             <Image
               src={avatar}
@@ -30,6 +35,7 @@ const outboxData = getMastodonPosts();
               height={100}
               width={100}
               class={"main-avatar"}
+              loading="eager"
             />
             {profileData.name} @{profileData.preferredUsername} Mastodon archive
           </div>

@@ -105,6 +105,7 @@ export interface Attachment {
   blurhash: null | string;
   width: number;
   height: number;
+  summary: null | string;
   focalPoint?: number[];
 }
 
