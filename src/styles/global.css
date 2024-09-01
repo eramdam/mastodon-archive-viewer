@@ -128,12 +128,12 @@ main {
   }
 
   /* Two images case */
-  &:has(:nth-child(2)):not(:has(:nth-child(3))) a {
+  &:has(a:nth-of-type(2)):not(:has(a:nth-of-type(3))) a {
     grid-row: span 2;
   }
 
   /* Three images case */
-  &:has(:nth-child(3)):not(:has(:nth-child(4))) a:nth-child(1) {
+  &:has(a:nth-of-type(3)):not(:has(a:nth-of-type(4))) a:nth-of-type(1) {
     grid-row: span 2;
   }
 
@@ -286,4 +286,44 @@ main {
   padding-right: 20px;
   margin-left: -20px;
   margin-right: -20px;
+}
+
+.status-media {
+  position: relative;
+}
+.status-image-toggle {
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 4px;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  padding: 0.5em;
+}
+
+.status-image-toggle:has(input:checked) span {
+  display: none;
+}
+.status-image-toggle:has(input:checked) svg {
+  display: block;
+}
+.status-image-toggle:has(input:checked) {
+  top: 10px;
+  left: 10px;
+  transform: initial;
+}
+
+.status-image-toggle svg {
+  display: none;
+  fill: currentColor;
+}
+
+.status-image-toggle input {
+  display: none;
+}
+
+.status-image-toggle:has(input:checked) ~ .status-images div:has(canvas) {
+  display: none !important;
 }
