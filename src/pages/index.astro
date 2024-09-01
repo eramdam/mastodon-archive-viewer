@@ -2,11 +2,12 @@
 import { Image } from "astro:assets";
 import avatar from "../../archive-data/avatar.jpg";
 import header from "../../archive-data/header.jpg";
-import { AllStatuses } from "../components/allStatuses";
-import { getMastodonProfile } from "../dataHelpers";
+import { SearchOrBrowse } from "../components/searchOrBrowse";
+import { getMastodonPosts, getMastodonProfile } from "../dataHelpers";
 import Base from "../layouts/base.astro";
 
 const profileData = getMastodonProfile();
+const outboxData = getMastodonPosts();
 ---
 
 <Base>
@@ -35,7 +36,10 @@ const profileData = getMastodonProfile();
         </div>
         <div class="main-content">
           <div class="profile-bio" set:html={profileData.summary} />
-          <AllStatuses client:load />
+          <div class="profile-meta">
+            {new Intl.NumberFormat().format(outboxData.length)} posts
+          </div>
+          <SearchOrBrowse client:idle />
         </div>
       </main>
     </body>

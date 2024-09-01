@@ -37,9 +37,6 @@ export const AllStatuses = () => {
 
   return (
     <>
-      <div className="profile-meta">
-        {new Intl.NumberFormat().format(outboxData.length)} posts
-      </div>
       <div className="profile-controls">
         <label htmlFor="pages">
           Page:{" "}

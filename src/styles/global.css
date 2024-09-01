@@ -75,11 +75,13 @@ main {
 }
 
 .main-content {
-  padding: 10px 0;
+  padding: 20px 0;
   padding-top: 0;
 
+  & .statuses-search,
   & [class^="profile-"],
-  & .status {
+  & .status,
+  & .statuses-controls {
     padding-left: 20px;
     padding-right: 20px;
   }
@@ -221,4 +223,51 @@ main {
   display: inline-flex;
   flex-direction: column;
   gap: 4px;
+}
+
+.statuses-controls {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+}
+
+.statuses-controls label {
+  border: 1px solid var(--subtle-outline);
+  text-align: center;
+  padding: 0.5em 1em;
+  background-color: transparent;
+
+  &:first-child {
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
+    border-right-width: 0;
+  }
+
+  & + & {
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+    border-left-width: 0;
+  }
+
+  & input {
+    display: none;
+  }
+
+  &:has(input:checked) {
+    background-color: var(--subtle-outline);
+  }
+}
+
+.statuses-search {
+  margin: 1em 0;
+}
+
+.statuses-search input {
+  width: 100%;
+  background-color: transparent;
+  border: none;
+  box-shadow: inset 0 0 0 1px var(--subtle-outline);
+  border-radius: 6px;
+  font-size: 1.25em;
+  padding: 0.5em;
 }

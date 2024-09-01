@@ -21,6 +21,7 @@
     "@types/react": "^18.3.5",
     "@types/react-dom": "^18.3.0",
     "astro": "^4.15.1",
+    "flexsearch": "^0.7.43",
     "html-to-text": "^9.0.5",
     "lodash": "^4.17.21",
     "memoize": "^10.0.0",
