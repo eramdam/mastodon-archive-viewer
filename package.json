@@ -2,6 +2,7 @@
   "name": "mastodon-archive-astro",
   "type": "module",
   "version": "0.0.1",
+  "homepage": "https://eramdam.github.io/mastodon-archive-viewer/",
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
