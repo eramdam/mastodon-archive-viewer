@@ -12,4 +12,6 @@ export default defineConfig({
   ],
 
   output: "static",
+  site: "https://eramdam.github.io",
+  base: "/mastodon-archive-viewer",
 });
