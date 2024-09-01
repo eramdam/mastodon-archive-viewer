@@ -13,8 +13,7 @@ You will need:
 - npm
 
 1. Clone this repository
-2. Extract your Mastodon archive file and:
-
+2. Extract your Mastodon archive
 3. Place the following files inside the `archive-data` folder:
 
 - `actor.json`
