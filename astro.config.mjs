@@ -1,6 +1,9 @@
 import { defineConfig } from "astro/config";
 import tailwind from "@astrojs/tailwind";
 import react from "@astrojs/react";
+import { loadEnv } from "vite";
+
+const { SITE_URL, BASE_PATH } = loadEnv(process.env.NODE_ENV, process.cwd(), "");
 
 // https://astro.build/config
 export default defineConfig({
@@ -12,7 +15,6 @@ export default defineConfig({
   ],
 
   output: "static",
-  // Change this to your base URL if you want to deploy the site somewhere else
-  site: "https://eramdam.github.io",
-  base: "/mastodon-archive-viewer",
+  site: SITE_URL,
+  base: BASE_PATH,
 });

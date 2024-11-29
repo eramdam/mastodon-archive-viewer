@@ -8,6 +8,15 @@ A demo is available at https://eramdam.github.io/mastodon-archive-viewer/
 
 This project is provided as-is, without any warranty.
 
+# Quick start
+
+1. Clone the repo
+2. Run `npm install`
+3. Run `npm start`
+4. Terminal will show you the local URL where the site is running
+
+You should be able to see the site with example data.
+
 # Usage
 
 You will need:
@@ -18,7 +27,7 @@ You will need:
 
 1. Clone this repository
 2. Extract your Mastodon archive
-3. Place the following files inside the `archive-data` folder:
+3. Place the following files inside the `data` folder:
 
 - `actor.json`
 - `outbox.json`
@@ -29,13 +38,22 @@ You will need:
 - `avatar.jpg`
 - `header.jpg`
 
-5. (Optional) Create a `.env` file with the following content if you want to show "private" (non public and non unlisted) posts from the archive. Those posts won't shown by default:
+4. Make sure to set your `SITE_URL` in `.env` to match your deployment URL.
+
+5. (Optional) Modify `.env` file with the following content if you want to show "private" (non public and non unlisted) posts from the archive. Those posts won't shown by default:
 
 ```
 SHOW_PRIVATE_POSTS=true
 ```
 
-6. Tweak the values in `astro.config.mjs` if you want to change the base URL of the generated site
+6. (Optional) Modify `.env` file with the following content if you want to use different base path on your server, for example this:
+
+```
+BASE_PATH=/mastodon-archive-viewer
+```
+
+Will make sure the site is hosted on `https://<your domain>/mastodon-archive-viewer/`
+
 7. Run `npm install` and `npm run build`
 8. The generated site will be in the `dist` folder
 

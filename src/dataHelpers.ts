@@ -1,7 +1,7 @@
-import actor from "../archive-data/actor.json";
+import actor from "../data/actor.json";
 import memoize from "memoize";
 import _ from "lodash";
-import outboxRaw from "../archive-data/outbox.json" assert { type: "json" };
+import outboxRaw from "../data/outbox.json" assert { type: "json" };
 import * as Outbox from "./types/outbox";
 const outbox = outboxRaw as Outbox.Outbox;
 
