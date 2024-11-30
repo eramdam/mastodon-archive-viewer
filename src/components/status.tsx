@@ -1,5 +1,13 @@
 import React from "react";
-import { getPathWithBase, getPostId, isBoost, isStatus } from "../dataHelpers";
+import {
+  getPathWithBase,
+  getPostId,
+  isBoost,
+  isStatus,
+  isImageMedia,
+  isAudioMedia,
+  isVideoMedia,
+} from "../dataHelpers";
 import type { Attachment, OrderedItem } from "../types/outbox";
 import { Blurhash } from "react-blurhash";
 
@@ -89,7 +97,7 @@ const Status: React.FC<Props> = ({ status, isExpanded, isMain }) => {
             >
               {images.map((f, index) => {
                 return (
-                  <a key={index} href={f.url}>
+                  <a key={index} href={getPathWithBase(f.url)}>
                     {f.blurhash && hasSensitiveContent && (
                       <Blurhash
                         hash={f.blurhash}
@@ -137,7 +145,7 @@ const Status: React.FC<Props> = ({ status, isExpanded, isMain }) => {
 export default Status;
 
 function renderMedia(f: Attachment) {
-  if (f.mediaType.startsWith("image/")) {
+  if (isImageMedia(f)) {
     return (
       <img
         src={getPathWithBase(f.url)}
@@ -150,7 +158,7 @@ function renderMedia(f: Attachment) {
     );
   }
 
-  if (f.mediaType.startsWith("video/")) {
+  if (isVideoMedia(f)) {
     return (
       <video
         src={getPathWithBase(f.url)}
@@ -162,7 +170,7 @@ function renderMedia(f: Attachment) {
     );
   }
 
-  if (f.mediaType.startsWith("audio/")) {
+  if (isAudioMedia(f)) {
     return (
       <>
         <img

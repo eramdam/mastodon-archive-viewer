@@ -7,6 +7,7 @@ const outbox = outboxRaw as Outbox.Outbox;
 
 const PUBLIC_RECIPIENT = "https://www.w3.org/ns/activitystreams#Public";
 const USER_DOMAIN = new URL(actor.url).hostname;
+const MEDIA_ATTACHMENT_RE = /\/media_attachments\/files\//;
 
 export type OutboxPost = Omit<Outbox.OrderedItem, "object"> & {
   object: Outbox.ObjectClass;
@@ -100,8 +101,39 @@ export function getPreviousPosts(post: OutboxPost) {
   return result;
 }
 
+/**
+ * Handles cases for servers that prefix `media_attachments`
+ * with a folder name <servercom>
+ *
+ * @see {@link https://github.com/eramdam/mastodon-archive-viewer/pull/2#issuecomment-2508687630}
+ */
+function normalizeMediaPath(path: string) {
+  if (!MEDIA_ATTACHMENT_RE.test(path) || path.startsWith("/media_attachments/files/")) {
+    return path;
+  }
+
+  const segments = path.split("/");
+  // Remove the first non-empty segment (index 1, as index 0 is empty due to leading slash)
+  segments.splice(1, 1);
+
+  // Join the remaining segments back into a path
+  return segments.join("/");
+}
+
 export function getPathWithBase(path: string) {
   return import.meta.env.BASE_URL === "/"
-    ? path
-    : import.meta.env.BASE_URL + "/" + path.replace(/^\//, "");
+    ? normalizeMediaPath(path)
+    : import.meta.env.BASE_URL + "/" + normalizeMediaPath(path).replace(/^\//, "");
+}
+
+export function isVideoMedia(f: Outbox.Attachment) {
+  return f.mediaType.startsWith("video/");
+}
+
+export function isImageMedia(f: Outbox.Attachment) {
+  return f.mediaType.startsWith("image/");
+}
+
+export function isAudioMedia(f: Outbox.Attachment) {
+  return f.mediaType.startsWith("audio/");
 }
